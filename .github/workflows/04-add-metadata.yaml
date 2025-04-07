@@ -1,0 +1,60 @@
+---
+name: 04 add Metadata
+
+on:
+  push:
+    paths:
+      - 'git-workflow-multiplatform/**'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'git-workflow-multiplatform/**'
+    
+jobs:
+  build-workflow-multi-platform:
+    name: build workflow Multi-Platform
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up QEMU #activa multi plataforma en github
+      uses: docker/setup-qemu-action@v3
+      
+    - name: Set up Docker Buildx (construye cache)
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+#aqui se agregan los metadatos
+    - name: Docker meta
+      id: docker_meta
+      uses: docker/metadata-action@v5
+      with:
+        images: rober0010/mi-nginx-custom:metadata
+        flavor: |
+          latest=false
+        tags: |
+          type=raw,value=04
+          type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
+          type=ref,event=pr
+          type=ref,event=branch
+          type=semver,pattern={{version}}
+    
+    - name: Docker Build with cache
+      uses: docker/build-push-action@v6
+      
+      with:
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.docker_meta.outputs.tags }} # metadata
+        labels: ${{ steps.docker_meta.outputs.labels }} #metadata
+        context: ./git-workflow-cache #cache
+        file: ./git-workflow-cache/Dockerfile #cache
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
+        
