@@ -1,10 +1,10 @@
 ---
-name: 04 add Metadata
+name: 08 add integration test
 
 on:
   push:
-  branches:
-    - main
+    branches:
+      - main
   
     
 jobs:
