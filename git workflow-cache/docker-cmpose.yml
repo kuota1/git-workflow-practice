@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  web:
+    image: rober0010/mi-image-nginx:latest
+    port: 
+      -  "8080:80"
+
