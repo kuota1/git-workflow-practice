@@ -3,10 +3,8 @@ name: 04 add Metadata
 
 on:
   push:
-    paths:
-      - main
-    branches:
-      - main
+  branches:
+    - main
   
     
 jobs:
