@@ -4,7 +4,7 @@ name: 04 add Metadata
 on:
   push:
     paths:
-      - 'git-workflow-multiplatform/**'
+      - main
     branches:
       - main
   pull_request:
