@@ -70,8 +70,8 @@ jobs:
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.docker_meta.outputs.tags }} # metadata
         labels: ${{ steps.docker_meta.outputs.labels }} #metadata
-        context: ./git-workflow-cache #cache
-        file: ./git-workflow-cache/Dockerfile #cache
+        context: .
+        file: ./Dockerfile #cache
         cache-from: type=gha
         cache-to: type=gha,mode=max
         platforms: linux/amd64,linux/arm64,linux/arm/v7
