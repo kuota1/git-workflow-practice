@@ -44,7 +44,7 @@ jobs:
     #docker compose
     - name: Test healthcheck in Docker Compose
       run: |
-        export TESTING_IMAGE= scanning-compose
+        export TESTING_IMAGE=scanning-compose
         docker compose -f docker-compose.yml up --exit-code-from web
 
 
