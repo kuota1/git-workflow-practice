@@ -48,15 +48,12 @@ jobs:
         sleep 10
         curl -f http://localhost:8080 || exit 1
         docker compose down
-
     
-
-
     - name: Docker Metadata for Final Image Build
       id: docker_meta
       uses: docker/metadata-action@v5
       with:
-        images: rober0010/mi-nginx-custom:metadata 
+        images: rober0010/mi-nginx-custom
         flavor: |
             latest=false
         tags: |
