@@ -60,7 +60,7 @@ jobs:
         flavor: |
             latest=false
         tags: |
-          type=raw,value=08
+          type=raw,value=metadata-08
         # comment these out on all but 04-add-metadata.yaml to avoid overwriting image tags
         # type=raw,value=latest,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }}
         # type=ref,event=pr
