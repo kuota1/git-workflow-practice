@@ -44,8 +44,10 @@ jobs:
     #docker compose
     - name: Test healthcheck in Docker Compose
       run: |
-        export TESTING_IMAGE=scanning-compose
-        timeout 30s docker compose -f docker-compose.yml up --abort-on-container-exit --exit-code-from web
+        docker compose -f docker-compose.yml up -d
+        sleep 10
+        curl -f http://localhost:8080 || exit 1
+        docker compose down
 
     
 

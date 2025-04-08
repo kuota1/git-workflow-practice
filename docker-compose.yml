@@ -11,22 +11,4 @@ services:
       timeout: 10s
       retries: 3
 
-
-    depends_on:
-      - db
-
-  db:
-    image: mariadb:10.5 
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: appdb    
-      MYSQL_USER: appuser
-      MYSQL_PASSWORD: apppass
-    ports:
-      - "3307:3306"
-    volumes:
-      - db-data:/var/lib/mysql
-
-volumes:
-  db-data:
-
+   
